@@ -6,4 +6,4 @@ root: intro
 parts:
   - caption: Relevant literature
     chapters:
-      - file: notes/relevant_literature
+      - file: relevant_literature/friendly_intro_to_differential_privacy
