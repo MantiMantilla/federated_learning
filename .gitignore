@@ -71,6 +71,10 @@ instance/
 # Sphinx documentation
 docs/_build/
 docs/*/_build/
+# Our configuration lives in the _config.yml file.
+# Sphinx's conf.py is an intermediate file for sphinx-autobuild.
+docs/*/conf.py
+
 
 # PyBuilder
 .pybuilder/

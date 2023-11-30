@@ -154,11 +154,21 @@ $$
 
 
 $$
-\frac{P[A(\text{Yes}) = \text{Yes}]}{P[A(\text{No}) = \text{Yes}]} = \frac{2p - p^2}{p - p^2} = e^{\varepsilon} \implies p = \frac{e^{\varepsilon}-2}{e^{\varepsilon} - 1}.
+\frac{P[A(\text{Yes}) = \text{Yes}]}{P[A(\text{No}) = \text{Yes}]} = \frac{2p - p^2}{p - p^2} = \frac{2-p}{1-p} = e^{\varepsilon} \implies p = \frac{e^{\varepsilon}-2}{e^{\varepsilon} - 1}.
 $$
 
 
 For example, if $\varepsilon = 1.1$, $p = \frac{3-2}{3-1} = \frac{1}{2} = 0.5$, just like in the original scenario!
+
+
+The nature of this survey does not allow for $\varepsilon$ values below a certain threshold. A biased coin that would produce a $\varepsilon$ below this value cannot exist, as it would require a negative probability. The lowest a probability can be is zero, but we know that for this scenario the probability can't be zero as that would make the *odds* undefined. Let's take the limit:
+
+$$
+\varepsilon = \lim_{p\rightarrow0^+}\ln{\frac{2-p}{1-p}} = \ln{2} \approx 0.693.
+$$
+
+
+That's the infimum of how $\varepsilon$-differentially private this survey could be.
 
 
 #### A generalization: quantifying the attacker's knowledge
@@ -173,7 +183,7 @@ The attacker has an *a priori* probability of the individual being in the databa
 ![Plot of *a posteriori* vs *a priori* probabilities for different values of epsilon.](https://desfontain.es/privacy/images/dp-contour-graph.png) 
 
 
-The image show how much the probability could change for different values of $\varepsilon$. Higher values increase how much the probability will increase. Let us derive the ranges analytically. Consider Baye's theorem for the *a posteriori* probabilities for $D_\text{in}$ and $D_\text{out}$.
+The image shows how much the probability could change for different values of $\varepsilon$. Higher values increase how much the probability will increase. Let us derive the ranges analytically. Consider Baye's theorem for the *a posteriori* probabilities for $D_\text{in}$ and $D_\text{out}$.
 
 
 $$
@@ -288,10 +298,29 @@ These bounds for the *a posteriori* probability hold even if the attacker has le
 #### What about composition?
 
 
-The two claims from the previous article have been validated. We've quantified how much knowledge an attacker can make without making assumptions about them. The last claim, that composing two $\varepsilon$-differentially private algorithms produce a $2\varepsilon$-differentially private algorithm, can be validated.
+The two claims from the previous article have been validated: we've quantified how much knowledge an attacker can obtain without making assumptions about them. The last claim, that composing two $\varepsilon$-differentially private algorithms produces a $2\varepsilon$-differentially private algorithm, can be validated.
 
 
+Given two independent $\varepsilon$-differentially private algorithms $A$ and $B$, let $C$ be a process such that $C(D) = (A(D), B(D))$. That is, the output of this composition is a pair of outputs: $O = (O_A, O_B)$.
 
+
+Because the two algorithms are independent, $P[C(D_1) = O] = P[A(D_1) = O_A] \cdot P[B(D_1) = O_B]$.
+
+From the definition of differential privacy, $P[A(D_1) = O_A] = e^{\varepsilon} \cdot P[A(D_2) = O_A]$.
+
+
+Plug the definition into the equation:
+
+$$
+\begin{align}
+P[C(D_1) = O] &\leq e^{\varepsilon} \cdot P[A(D_2) = O_A] \cdot e^\varepsilon \cdot P[B(D_1) = O_B],\\
+P[C(D_1) = O] &\leq e^{2\varepsilon} \cdot P[A(D_2) = O_A] \cdot P[B(D_1) = O_B],\\
+P[C(D_1) = O] &\leq e^{2\varepsilon} \cdot P[C(D_2) = O].
+\end{align}
+$$
+
+
+As such, process $C$ is $2\varepsilon$-differentially private.
 
 
 ## 2. How to achieve differential privacy
@@ -309,3 +338,87 @@ Summary
 
 
 Summary
+
+
+### 2.3. The privacy loss randome variable
+
+
+Summary
+
+
+### 2.4. The magic of Gaussian noise
+
+
+Summary
+
+
+### 2.5. Getting more useful results with differential privacy
+
+
+Summary
+
+
+### 2.6. Averaging risk: Rényi DP & zero-concentrated DP
+
+
+Summary
+
+
+### 2.7. Choosing things privately with the exponential mechanism
+
+
+Summary
+
+
+## 3. Why bother with differential privacy?
+
+
+Second branch
+
+
+### 3.1. Local vs. central differential privacy
+
+
+Summary
+
+
+### 3.2. Why not differential privacy?
+
+
+Summary
+
+
+### 3.3. Demystifying the US Census Bureau's reconstruction attack
+
+
+Summary
+
+
+### 3.4. Don't worry, your data's noisy
+
+
+Summary
+
+
+### 3.5. Is differential privacy the right fit for your problem?
+
+
+Summary
+
+
+### 3.6. What anonymization techniques can you trust?
+
+
+Summary
+
+
+### 3.7. Mapping privacy-enhancing technologies to your use cases
+
+
+Summary
+
+
+## 4. Known real-world deployments of DP
+
+
+Third branch.
